@@ -160,6 +160,8 @@ class Dryers(db.Model):
 class CurrentWashing(db.Model):
     import datetime
     id = db.Column(db.Integer(), primary_key=True)
+    userID = db.Column(db.Integer())
+    userEmail = db.Column(db.String(220))
     machineId = db.Column(db.Integer())
     locationNum = db.Column(db.Integer())
     price = db.Column(db.Float(5))
@@ -175,6 +177,8 @@ class CurrentWashing(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "userID": self.userID,
+            "userEmail": self.userEmail,
             "machineId": self.machineId,
             "locationNum": self.locationNum,
             "price": self.price,
