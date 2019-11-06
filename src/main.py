@@ -237,6 +237,8 @@ def start_wash():
 
         db.session.add(CurrentWashing(
             machineId = body['machineId'],
+            userID = body['userID'],
+            userEmail = body['userEmail'],
             locationNum = body['locationNum'],
             price = body['price'],
             cicle = body['cicle'],
@@ -253,6 +255,21 @@ def start_wash():
         })
 
     return "Invalid Method", 404
+
+@app.route('/user_wash', methods=['POST'])
+def get_user_current_wash():
+    body = request.get_json()
+    if request.method == 'POST':
+        
+        getWashing = CurrentWashing.query.filter_by(userID=body['user_id'], userEmail=body['user_email'])
+        if not getWashing:
+            return jsonify({'msg':'No washing in pregress'}), 404
+
+        return jsonify( [x.serialize() for x in getWashing] ), 200
+
+    return "Invalid Method", 404
+
+
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

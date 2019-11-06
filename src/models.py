@@ -184,6 +184,6 @@ class CurrentWashing(db.Model):
             "price": self.price,
             "cicle": self.cicle,
             "time": self.time,
-            "start_at": self.start_at,
-            "end_at": self.end_at
+            "start": self.start,
+            "end": self.end
         }
