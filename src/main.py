@@ -275,10 +275,10 @@ def start_wash():
         body = request.get_json()
 
         db.session.add(CurrentWashing(
-            machineId = body['machineId'],
-            machineNumber = body['machineNumber'],
             userID = body['userID'],
             userEmail = body['userEmail'],
+            machineId = body['machineId'],
+            machineNumber = body['machineNumber'],
             locationNum = body['locationNum'],
             price = body['price'],
             cicle = body['cicle'],
