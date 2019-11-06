@@ -173,7 +173,6 @@ def dryers_add():
             'added': 'success',
             'msg': 'Successfully Added'
         })
-    return "Invalid Method", 404 
 
     if request.method == 'PUT':
         if updateDryer is None:
@@ -196,7 +195,7 @@ def dryers_add():
                 'msg': 'Successfully Updated'
             })
     
-    return "Invalid Method", 404 
+    return "Invalid Method, try again", 404 
 
 
 @app.route('/register', methods=['POST'])
