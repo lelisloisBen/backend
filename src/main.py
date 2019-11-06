@@ -150,25 +150,53 @@ def washer_add():
         'msg': 'Successfully Added'
     })
 
-@app.route('/adddryer', methods=['POST'])
+@app.route('/adddryer', methods=['POST','PUT'])
 def dryers_add():
     body = request.get_json()
-    db.session.add(Dryers(
-        type = body['type'],
-        name = body['name'],
-        number = body['number'],
-        postal = body['postal'],
-        locationNum = body['locationNum'],
-        available = body['available'],
-        cicle = body['cicle'],
-        time = body['time'],
-        price = body['price']
-    ))
-    db.session.commit()
-    return jsonify({
-        'added': 'success',
-        'msg': 'Successfully Added'
-    })
+
+    updateDryer = Dryers.query.get(body['id'])
+
+    if request.method == 'POST':
+        db.session.add(Dryers(
+            type = body['type'],
+            name = body['name'],
+            number = body['number'],
+            postal = body['postal'],
+            locationNum = body['locationNum'],
+            available = body['available'],
+            cicle = body['cicle'],
+            time = body['time'],
+            price = body['price']
+        ))
+        db.session.commit()
+        return jsonify({
+            'added': 'success',
+            'msg': 'Successfully Added'
+        })
+    return "Invalid Method", 404 
+
+    if request.method == 'PUT':
+        if updateDryer is None:
+            raise APIException('Dryer not found', status_code=404)
+
+        if "cicle" in body:
+            updateDryer.cicle = body["cicle"],
+            updateDryer.available = body["available"],
+            updateDryer.locationNum = body["locationNum"],
+            updateDryer.name = body["name"],
+            updateDryer.number = body["number"],
+            updateDryer.postal = body["postal"],
+            updateDryer.price = body["price"],
+            updateDryer.time = body["time"],
+            updateDryer.type = body["type"]
+
+            db.session.commit()
+            return jsonify({
+                'added': 'success',
+                'msg': 'Successfully Updated'
+            })
+    
+    return "Invalid Method", 404 
 
 
 @app.route('/register', methods=['POST'])
