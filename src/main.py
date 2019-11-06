@@ -48,7 +48,7 @@ def handle_users():
 
     return "Invalid Method", 404
 
-@app.route('/values', methods=['GET'])
+@app.route('/values', methods=['GET', 'POST'])
 def get_value():
     if request.method == 'GET':
         values = Btnvalues.query.all()
@@ -57,6 +57,18 @@ def get_value():
             return jsonify({'msg':'Value not found'}), 404
 
         return jsonify( [x.serialize() for x in values] ), 200
+    
+    if request.method == 'POST':
+        body = request.get_json()
+        db.session.add(Btnvalues(
+            name = body['name'],
+            value = body['value']
+        ))
+        db.session.commit()
+        return jsonify({
+            'created': 'success',
+            'msg': 'Successfully Created'
+        })
 
     return "Invalid Method", 404
 
