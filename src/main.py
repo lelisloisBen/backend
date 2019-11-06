@@ -276,6 +276,7 @@ def start_wash():
 
         db.session.add(CurrentWashing(
             machineId = body['machineId'],
+            machineNumber = body['machineNumber'],
             userID = body['userID'],
             userEmail = body['userEmail'],
             locationNum = body['locationNum'],
@@ -283,7 +284,8 @@ def start_wash():
             cicle = body['cicle'],
             time = body['time'],
             start = body['start_at'],
-            end = body['end_at']
+            end = body['end_at'],
+            cycleComplete = body['cycleComplete']
         ))
 
         db.session.commit()

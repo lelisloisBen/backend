@@ -163,12 +163,14 @@ class CurrentWashing(db.Model):
     userID = db.Column(db.Integer())
     userEmail = db.Column(db.String(220))
     machineId = db.Column(db.Integer())
+    machineNumber = db.Column(db.Integer())
     locationNum = db.Column(db.Integer())
     price = db.Column(db.Float(5))
     cicle = db.Column(db.String(120))
     time = db.Column(db.Integer())
     start = db.Column(db.BigInteger())
     end = db.Column(db.BigInteger())
+    cycleComplete = db.Column(db.String(120))
     
 
     def __repr__(self):
@@ -180,10 +182,12 @@ class CurrentWashing(db.Model):
             "userID": self.userID,
             "userEmail": self.userEmail,
             "machineId": self.machineId,
+            "machineNumber": self.machineNumber,
             "locationNum": self.locationNum,
             "price": self.price,
             "cicle": self.cicle,
             "time": self.time,
             "start": self.start,
-            "end": self.end
+            "end": self.end,
+            "cycleComplete": self.cycleComplete
         }
